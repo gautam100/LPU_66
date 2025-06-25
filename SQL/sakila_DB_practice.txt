@@ -1,0 +1,88 @@
+use sakila;
+
+-- Write SQL to count the common last names from the actor table.
+
+SELECT 
+count(last_name), last_name 
+from actor group by last_name order by last_name;
+-- -------------------------------------------------
+
+-- write SQL to get records in which address2 column has NULL value from address table.
+SELECT * FROM address;
+SELECT * FROM address WHERE address2 IS NULL;
+
+-- ---------------------------------------------------
+-- write SQL to fetch those records in which phone column has 10 digits from address table.
+SELECT * FROM address WHERE length(phone) = 10;
+
+-- -------------------------------------------------------
+-- Write SQL to fetch only those records in which postal_code column has more than four digits from address table.
+SELECT * FROM address WHERE length(postal_code) > 4;
+
+-- -------------------------------------------------------
+-- Write SQL to get records of below district from address table
+-- - Andhra Pradesh
+-- - Buenos Aires
+-- - California
+
+-- Below columns need to fetch.
+-- address | address2 | district | city Name | postal_code 
+
+-- NOTE: Instead of city_id name of city should display.
+
+
+SELECT a.address, a.address2, a.district, b.city, a.postal_code
+FROM
+address a INNER JOIN city b ON a.city_id = b.city_id
+WHERE 
+a.district IN ('Andhra Pradesh', 'Buenos Aires','California')
+ORDER BY district;
+
+-- ------------------------------------------------------------
+-- From city and country table, print city name and its corresponding country.
+
+SELECT 
+a.country,
+b.city
+FROM 
+country a LEFT JOIN city b ON a.country_id = b.country_id
+ORDER BY a.country;
+
+-- -----------------------------------------------------------------
+-- Using inner join, From customer table, print Full Name & email. 
+-- From address table fetch corosponding address, district & postal_code. 
+-- and city name from city table.
+
+SELECT 
+CONCAT(a.first_name,' ',a.last_name) AS FULL_NAME, a.email AS EMAIL,
+b.address AS address, b.district AS district, b.postal_code AS "Pin code",
+c.city AS city
+FROM 
+customer a
+INNER JOIN 
+address b
+ON a.address_id = b.address_id
+INNER JOIN
+city c 
+ON b.city_id = c.city_id
+ORDER BY a.first_name;
+
+-- -----------------------------------------------------------------
+
+--  Write SQL query to print details of the actors whose FIRST_NAME ends with 'a' and 
+-- contains four alphabets from actor table.
+
+SELECT * FROM actor WHERE first_name like '%a' AND length(first_name) =4;
+
+-- -----------------------------------------------------------------
+
+-- From film table, fetch all records in which rental_rate is greater than 2.00 and less than 5.00
+
+SELECT * FROM film WHERE rental_rate  between 2.00 AND 5.00 order by rental_rate;
+
+-- -----------------------------------------------------------------
+
+-- Write an SQL query to show only odd rows from Customer table.
+
+SELECT * FROM customer GROUP BY customer_id HAVING mod(customer_id,2);
+SELECT * FROM customer WHERE customer_id % 2 <> 0;
