@@ -60,20 +60,47 @@ app.post("/api/category", (req, resp) => {
   }
 });
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-app.delete("/api/category/:id",(req,resp)=>{
+app.delete("/api/category/:id", (req, resp) => {
   let id = req.params.id;
-  if(!id){
-    return resp.status(404).json({msg: 'Error: id is missing!'});
-  }else{
-    connection.query(`DELETE FROM master_category WHERE id = ${id}`,(err,result)=>{
-      if(err){
-        return resp.status(400).json({msg: 'Error in SQL!'});
-      }else{
-        return resp.status(200).json({msg: `One record deleted with id ${id}`});
+  if (!id) {
+    return resp.status(404).json({ msg: "Error: id is missing!" });
+  } else {
+    connection.query(
+      `DELETE FROM master_category WHERE id = ${id}`,
+      (err, result) => {
+        if (err) {
+          return resp.status(400).json({ msg: "Error in SQL!" });
+        } else {
+          return resp
+            .status(200)
+            .json({ msg: `One record deleted with id ${id}` });
+        }
       }
-    })
+    );
   }
-})
+});
+
+app.put("/api/category", (req, resp) => {
+  const body = req.body;
+  const id = body.id;
+
+  if (!id) {
+    return resp.status(404).json({ msg: "Error: Mandatory field is missing!" });
+  } else {
+    connection.query(
+      `UPDATE master_category set cate_name = '${body.cate_name}', description = '${body.description}', is_enable= '${body.is_enable}' WHERE id = ${id}`,
+      (error, result) => {
+        if (error) {
+          return resp.status(400).json({ msg: "Error in updating SQL!" });
+        } else {
+          return resp
+            .status(200)
+            .json({ msg: `One record updated with id: ${id}` });
+        }
+      }
+    );
+  }
+});
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
