@@ -40,9 +40,28 @@ app.use(express.urlencoded({ extended: false }));
 
 app.get("/category",async (req,resp)=>{
     const categoryList = await Category.find({});
-
+    let html = `
+    <table align='center' border='1' cellpadding='2'>
+        <th>
+            <tr>
+                <td>Category Name</td>
+                <td>Description</td>
+                <td>Is Enable</td>
+            </tr>
+        </th>
+        <tb>
+        ${categoryList.map((Category)=>`{
+            <tr>
+                <td>${Category.categoryName}</td>
+                <td>${Category.description}</td>
+                <td>${Category.is_enable}</td>
+            </tr>
+            }`).join("")}
+        </tb>
+    </table>
+    `;
     console.log(categoryList);
-    resp.send(categoryList);
+    resp.send(html);
 
 })
 
