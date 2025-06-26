@@ -15,13 +15,34 @@ app.get("/",(req,resp)=>{
 })
 
 // Define the schema
+const categorySchema = new mongoose.Schema(
+  {
+    categoryName: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+    },
+    is_enable: {
+      type: String,
+    },
+  },
+  { timestamps: true }
+);
 
 
-app.get("/users",async (req,resp)=>{
-    const userList = await User.find({});
+// model
+const Category = mongoose.model("category", categorySchema);
 
-    console.log(userList);
-    resp.send(userList);
+//Middleware
+app.use(express.urlencoded({ extended: false }));
+
+app.get("/category",async (req,resp)=>{
+    const categoryList = await Category.find({});
+
+    console.log(categoryList);
+    resp.send(categoryList);
 
 })
 
