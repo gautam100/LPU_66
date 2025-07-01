@@ -31,7 +31,6 @@ const categorySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-
 // model
 const Category = mongoose.model("category", categorySchema);
 
@@ -42,14 +41,14 @@ app.get("/category",async (req,resp)=>{
     const categoryList = await Category.find({});
     let html = `
     <table align='center' border='1' cellpadding='2'>
-        <th>
+        <thead>    
             <tr>
-                <td>Category Name</td>
-                <td>Description</td>
-                <td>Is Enable</td>
+                <th width='25%'>Category Name</th>
+                <th width='50%'>Description</th>
+                <th width='25%'>Is Enable</th>
             </tr>
-        </th>
-        <tb>
+        </thead>
+        <tbody>
         ${categoryList.map((Category)=>`{
             <tr>
                 <td>${Category.categoryName}</td>
@@ -57,13 +56,22 @@ app.get("/category",async (req,resp)=>{
                 <td>${Category.is_enable}</td>
             </tr>
             }`).join("")}
-        </tb>
+        </tbody>
     </table>
     `;
     console.log(categoryList);
     resp.send(html);
 
 })
+
+app.get("/api/category",async (req,resp)=>{
+  const categoryList = await Category.find({});
+  if(!categoryList){
+    return resp.status(400).json({msg:'Error in Server'});
+  }
+  return resp.status(200).json({msg:categoryList})
+})
+
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
