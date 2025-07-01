@@ -88,8 +88,8 @@ app.get("/api/category/:id", async (req, resp) => {
 app.post("/api/category", async (req, resp) => {
   let body = req.body;
   //Check validation
-  if(!body.categoryName){
-    return resp.status(400).json({msg:"Mandatory field is missing!"})
+  if (!body.categoryName) {
+    return resp.status(400).json({ msg: "Mandatory field is missing!" });
   }
   //Insertion
   const result = await Category.create({
@@ -98,23 +98,26 @@ app.post("/api/category", async (req, resp) => {
     is_enable: body.is_enable,
   });
   //Response message
-  if(result){
-    return resp.status(200).json({msg:"One Record inserted successfully!"})
-  }else{
-    return resp.status(500).json({msg:"Error in insertion!"})
+  if (result) {
+    return resp.status(200).json({ msg: "One Record inserted successfully!" });
+  } else {
+    return resp.status(500).json({ msg: "Error in insertion!" });
   }
 });
 
 //Modify Document
-app.patch("/api/category/:id",async(req,resp)=>{
-  await Category.findByIdAndUpdate(req.params.id,{description: 'some new description'});
-  return resp.status(200).json({msg:"One Record modified successfully!"})
-})
+app.patch("/api/category/:id", async (req, resp) => {
+  await Category.findByIdAndUpdate(req.params.id, {
+    description: "some new description",
+  });
+  return resp.status(200).json({ msg: "One Record modified successfully!" });
+});
 
 //Delete Document
-app.delete("/api/category/:id",async(req,resp)=>{
-
-})
+app.delete("/api/category/:id", async (req, resp) => {
+  await Category.findByIdAndDelete(req.params.id);
+  return resp.json({ msg: "One record deleted successfully!" });
+});
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 app.listen(PORT, () => {
   console.log("Application is running on port 3000");
