@@ -105,6 +105,16 @@ app.post("/api/category", async (req, resp) => {
   }
 });
 
+//Modify Document
+app.patch("/api/category/:id",async(req,resp)=>{
+  await Category.findByIdAndUpdate(req.params.id,{description: 'some new description'});
+  return resp.status(200).json({msg:"One Record modified successfully!"})
+})
+
+//Delete Document
+app.delete("/api/category/:id",async(req,resp)=>{
+
+})
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 app.listen(PORT, () => {
   console.log("Application is running on port 3000");
