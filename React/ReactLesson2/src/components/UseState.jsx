@@ -9,6 +9,10 @@ const UseState = () => {
   const handleDiv2 = () => {
     setDiv2(!div2);
   };
+  const [country,setCountry] = useState("")
+  function setDropDown(event){
+    setCountry(event.target.value);
+  }
   return (
     <>
       <div className="row">
@@ -35,8 +39,26 @@ const UseState = () => {
             ></div>
           )}
           <div>
-            <button className="btn btn-primary" onClick={()=>handleDiv2()}>Toggle</button>
+            <button className="btn btn-primary" onClick={() => handleDiv2()}>
+              Toggle
+            </button>
           </div>
+        </div>
+      </div>
+      <div className="row mt-4">
+        <div className="col">
+          <select
+            className="text-center"
+            onChange={(event) => setDropDown(event)}
+          >
+            <option value="">Select</option>
+            <option value="India">India</option>
+            <option value="USA">USA</option>
+            <option value="Australia">Australia</option>
+          </select>
+        </div>
+        <div className="col">
+            Selected Country is : {country}
         </div>
       </div>
     </>

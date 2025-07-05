@@ -5,7 +5,7 @@ const Nav = () => {
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-warning">
         <a className="navbar-brand pl-2" href="#">
-          Logo
+          React-20
         </a>
         <button
           className="navbar-toggler"
