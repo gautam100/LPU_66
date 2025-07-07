@@ -7,6 +7,7 @@ import Nav from "./Nav";
 import Home from "./components/Home";
 import DataBinding from "./components/DataBinding";
 import UseState from "./components/UseState";
+import Props from "./Props";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/data-binding" element={<DataBinding />} />
             <Route path="/state" element={<UseState />} />
+            <Route path="/props" element={<Props />} />
           </Routes>
         </BrowserRouter>
       </div>
