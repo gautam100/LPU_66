@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import UncontrolledComponent from "./uncontrolledComponent";
 
 function App() {
   const [counter1, setCounter1] = useState(0);
@@ -29,7 +30,9 @@ function App() {
       <button onClick={() => handleCounter1()}>Counter 1</button> {counter1}
       <br /><br />
       <button onClick={() => handleCounter2()}>Counter 2</button> {counter2}
+      <UncontrolledComponent />
     </>
+    
   );
 }
 
