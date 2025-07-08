@@ -17,10 +17,10 @@ function App() {
   function callOneTimeAgain(){
     console.log("I m inside callOneTimeAgain");
   }
-  
+
   useEffect(()=>{
     callOneTime();
-  },[callOneTimeAgain()])
+  },[counter2])
   
 
   return (
