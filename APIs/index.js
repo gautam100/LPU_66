@@ -1,6 +1,6 @@
 let express = require("express");
 let bodyParser = require("body-parser");
-const connection = require("./connection.js");
+//const connection = require("./connection.js");
 
 let app = express();
 app.use(bodyParser.json()); //Convert incoming data into json
