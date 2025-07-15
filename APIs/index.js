@@ -16,7 +16,7 @@ app.get("/api/category", (req, resp) => {
       if (err) {
         resp.status(400).json({ msg: "Error in sql" });
       } else {
-        resp.status(200).json({ msg: result });
+        resp.status(200).json({ msg: "Successful" });
       }
     }
   );
